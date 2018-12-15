@@ -1,15 +1,15 @@
 
 from flask.ext.script import Manager, Server
 
-from app import create_app as app
+from app import create_app, db, User
 
 
-manage = Manager(app)
+manage = Manager(create_app)
 
 
 @manage.shell
 def make_shell_content():
-    return dict(app=app)
+    return dict(app=create_app, db=db, User=User)
 
 
 if __name__ == '__main__':
