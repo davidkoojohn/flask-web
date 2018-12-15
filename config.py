@@ -2,21 +2,47 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'migrations')
 
 
 class Config(object):
-    pass
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
+    SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+    SQLALCHEMY_MIGRATE_REPO = SQLALCHEMY_MIGRATE_REPO
+    # FLASKY_MAIL_SUBJECT_PREFIX = ''
+    # FLASKY_MAIL_SENDER = ''
+
+    @staticmethod
+    def init_app(app):
+        pass
 
 
 class ProdConfig(Config):
-    pass
+    SQLALCHEMY_DATABASE_URI = (os.environ.get('DATABASE_URL') or
+                               'sqlite:///' + os.path.join(basedir, 'data.sqlite'))
 
 
 class DevConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI
-    SQLALCHEMY_MIGRATE_REPO = SQLALCHEMY_MIGRATE_REPO
     CSRF_ENABLED = True
-    SECRET_KEY = 'you-will-never-guess'
+    # MAIL_SERVER = 'smtp.googlemail.com'
+    # MAIL_PORT = 587
+    # MAIL_USE_TLS = True
+    # MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    # MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    SQLALCHEMY_DATABASE_URI = (os.environ.get('DEV_DATABASE_URL') or
+                               'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite'))
+
+
+class TestingConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = (os.environ.get('TEST_DATABASE_URL') or
+                               'sqlite:///' + os.path.join(basedir, 'data-test.sqlite'))
+
+
+config = {
+    'development': DevConfig,
+    'testing': TestingConfig,
+    'production': ProdConfig,
+    'default': DevConfig
+}

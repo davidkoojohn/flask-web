@@ -1,19 +1,25 @@
-
+#!/usr/bin/env python
+import os
 from flask.ext.script import Manager, Server
+from flask.ext.migrate import Migrate, MigrateCommand
 
-from app import create_app
-
-
-manage = Manager(create_app)
+from app import create_app, db
 
 
-@manage.shell
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+manager = Manager(app)
+migrate = Migrate(app, db)
+
+
+@manager.shell
 def make_shell_content():
-    return dict(app=create_app)
+    return dict(app=app, db=db)
 
+
+manager.add_command('server', Server())
+manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
-    manage.add_command('server', Server())
 
-    manage.run()
+    manager.run()
 

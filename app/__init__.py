@@ -1,16 +1,24 @@
 
 from flask import Flask
+from flask.ext.bootstrap import Bootstrap
+from flask.ext.moment import Moment
 from flask.ext.sqlalchemy import SQLAlchemy
 
-from config import DevConfig
-import models
+from config import config, DevConfig
 
 app = Flask(__name__)
-db = SQLAlchemy(app)
+bootstrap = Bootstrap()
+moment = Moment()
+db = SQLAlchemy()
 
 
-def create_app():
-    app.config.from_object(DevConfig)
+def create_app(config_name):
+    app.config.from_object(config[config_name])
+    config[config_name].init_app(app)
+
+    bootstrap.init_app(app)
+    moment.init_app(app)
+    db.init_app(app)
 
     from views import landing_view, login_view
 

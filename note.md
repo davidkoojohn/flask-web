@@ -18,6 +18,14 @@ pip install PyMySql
 mysql+pymysql://user:password@ip:port/db_name
 ```
 
+## Flask-Migrate
+
+```
+python manage.py db init
+python manage.py db migrate
+python manage.py db upgrade
+```
+
 
 
 
