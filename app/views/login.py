@@ -4,10 +4,10 @@ from flask.ext.wtf import Form
 from wtforms import StringField, BooleanField, HiddenField
 from wtforms.validators import DataRequired
 
-login_view = Blueprint('login', __name__)
+login = Blueprint('login', __name__)
 
 
-@login_view.route('', methods=['POST', 'GET'])
+@login.route('', methods=['POST', 'GET'])
 def index():
     form = LoginForm()
     if form.validate_on_submit():
