@@ -1,10 +1,6 @@
 
-from flask import Flask, render_template, flash, redirect, url_for, request
+from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.wtf import Form
-from wtforms import StringField, BooleanField, HiddenField
-from wtforms.validators import DataRequired
-
 
 from config import DevConfig
 
@@ -15,30 +11,12 @@ db = SQLAlchemy(app)
 def create_app():
     app.config.from_object(DevConfig)
 
+    from views import landing_view, login_view
+
+    app.register_blueprint(landing_view, url_prefix='/')
+    app.register_blueprint(login_view, url_prefix='/login')
+
     return app
-
-
-@app.route('/')
-def index():
-    return render_template('index.html', name='koo')
-
-
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        flash('Login requested for OpenID="' +
-              form.openid.data + '", remember_me='
-              + str(form.remember_me.data))
-        form.openid.data = ''
-        return redirect('/')
-    return render_template('login.html', title='Sign In', form=form)
-
-
-class LoginForm(Form):
-    hidden_tag = HiddenField()
-    openid = StringField('openid', validators=[DataRequired()])
-    remember_me = BooleanField('remember_me', default=False)
 
 
 class Role(db.Model):
