@@ -1,7 +1,7 @@
 
 from flask.ext.script import Manager, Server
 
-from app import create_app, db, User
+from app import create_app
 
 
 manage = Manager(create_app)
@@ -9,7 +9,7 @@ manage = Manager(create_app)
 
 @manage.shell
 def make_shell_content():
-    return dict(app=create_app, db=db, User=User)
+    return dict(app=create_app)
 
 
 if __name__ == '__main__':
