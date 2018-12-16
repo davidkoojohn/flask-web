@@ -44,9 +44,6 @@ class User(db.Model):
     def get_id(self):
         return unicode(self.id)
 
-    def __init__(self, username):
-        self.username = username
-
     def __repr__(self):
         return '<User %r>' % self.username
 
@@ -56,9 +53,6 @@ class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
     users = db.relationship('User', backref='role')
-
-    def __init__(self, name):
-        self.username = name
 
     def __repr__(self):
         return '<Role %r>' % self.name
