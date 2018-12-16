@@ -1,5 +1,6 @@
 
 from flask import Blueprint, render_template
+from flask.ext.login import login_required
 
 landing = Blueprint('landing', __name__)
 
@@ -7,6 +8,12 @@ landing = Blueprint('landing', __name__)
 @landing.route('')
 def index():
     return render_template('landing.html', name='davidkoojohn')
+
+
+@landing.route('secret')
+@login_required
+def secret():
+    return 'Only authenticated users are allowed!'
 
 
 @landing.app_errorhandler(404)
