@@ -1,5 +1,5 @@
 
-from flask import Blueprint, render_template, flash, redirect
+from flask import Blueprint, render_template, flash, redirect, url_for
 from flask.ext.wtf import Form
 from wtforms import StringField, BooleanField, HiddenField
 from wtforms.validators import DataRequired
@@ -15,7 +15,7 @@ def index():
               form.openid.data + '", remember_me='
               + str(form.remember_me.data))
         form.openid.data = ''
-        return redirect('/')
+        return redirect(url_for('landing.index'))
     return render_template('login.html', title='Sign In', form=form)
 
 
