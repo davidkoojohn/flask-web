@@ -4,6 +4,7 @@ from flask.ext.script import Manager, Server
 from flask.ext.migrate import Migrate, MigrateCommand
 
 from app import create_app, db
+from app.models import User, Role
 
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
@@ -13,7 +14,7 @@ migrate = Migrate(app, db)
 
 @manager.shell
 def make_shell_content():
-    return dict(app=app, db=db)
+    return dict(app=app, db=db, User=User, Role=Role)
 
 
 manager.add_command('server', Server())
