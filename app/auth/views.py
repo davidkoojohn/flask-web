@@ -59,7 +59,7 @@ def confirm(token):
         flash('You have confirmed your account. Thanks!')
     else:
         flash('The confirmation link is invalid or has expired.')
-    return redirect(url_for('main.index'))
+    return redirect(url_for('landing.index'))
 
 
 @auth.before_app_request
@@ -88,4 +88,4 @@ def resend_confirmation():
                user=current_user,
                token=token)
     flash('A new confirmation email has been sent to you by email.')
-    return redirect(url_for('main.index'))
+    return redirect(url_for('landing.index'))

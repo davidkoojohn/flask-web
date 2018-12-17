@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-confirm
-</body>
-</html>
+<p>Dear {{user.nickname}},</p>
+<p>Welcome to Flask-web!</p>
+<p>
+  To confirm your account please click on the following link:
+  <a href="{{ url_for('auth.confirm', token=token, _external=True) }}">
+    Confirm to!
+  </a>
+  Sincerely,
+</p>
+<p>The Flask-web Team</p>
+<p>Note: replies to this email address are not monitored.</p>
