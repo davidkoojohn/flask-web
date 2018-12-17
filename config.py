@@ -9,8 +9,14 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_MIGRATE_REPO = SQLALCHEMY_MIGRATE_REPO
-    # FLASKY_MAIL_SUBJECT_PREFIX = ''
-    # FLASKY_MAIL_SENDER = ''
+    MAIL_SERVER = 'smtp.163.com'
+    MAIL_PORT = 465
+    MAIL_USE_TLS = True
+    MAIL_USE_SSL = True,
+    # MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    # MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    FLASKY_MAIL_SUBJECT_PREFIX = 'flask-web'
+    FLASKY_MAIL_SENDER = 'Flask Admin <davidkoojohn@163.com>'
 
     @staticmethod
     def init_app(app):
