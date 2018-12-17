@@ -8,3 +8,6 @@
 - Flask-Mail: 发送与认证相关的电子邮件。
 - Flask-Bootstrap: HTML 模板。
 - Flask-WTF: Web 表单。
+
+1. Werkzeug 实现密码散列.`generate_password_hash, check_password_hash`
+2. Flask-Login
