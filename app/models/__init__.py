@@ -1,2 +1,2 @@
 
-from .models import User, Post, Role
+from .models import User, Post, Role, Permission

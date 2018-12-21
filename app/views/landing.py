@@ -1,6 +1,8 @@
 
 from flask import Blueprint, render_template
 from flask.ext.login import login_required
+from ..decorators import admin_required, permission_required
+from ..models import Permission
 
 landing = Blueprint('landing', __name__)
 
@@ -14,6 +16,20 @@ def index():
 @login_required
 def secret():
     return 'Only authenticated users are allowed!'
+
+
+@landing.route('admin')
+@login_required
+@admin_required
+def for_admins_only():
+    return "For administrators!"
+
+
+@landing.route('/moderator')
+@login_required
+@permission_required(Permission.MODERATE_COMMENTS)
+def for_moderators_only():
+    return "For comment moderators!"
 
 
 @landing.app_errorhandler(404)
