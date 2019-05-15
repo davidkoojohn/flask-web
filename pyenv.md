@@ -1,5 +1,13 @@
 ## pyenv & pyenv-virtualenv
 
+```
+$ pyenv install --list
+$ pyenv install 3.6.7
+$ pyenv versions
+$ pyenv global 3.6.7
+$ pyenv uninstall x.x.x
+```
+
 * 使用 `pyenv-virtualenv` 创建虚拟环境：
 
 ```
