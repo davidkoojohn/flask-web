@@ -26,7 +26,7 @@ iso8601==0.1.12
 itsdangerous==1.1.0
 Jinja2==2.10
 leancloud==2.1.8
-Mako==1.0.7
+Mako==1.2.2
 MarkupSafe==1.1.0
 pbr==5.1.1
 python-dateutil==2.7.5
